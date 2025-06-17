@@ -56,6 +56,7 @@ def gameover(screen: pg.Surface) -> None:
 def init_bb_imgs() -> tuple[list[pg.Surface], list[int]]:
     """
     サイズの異なる爆弾Surfaceを要素としたリストと加速度リストを返す
+    戻り値：爆弾Surfaceのリスト、対応する加速度リスト
     """
     bb_imgs = []  # 爆弾リスト
     bb_kasoku = [a for a in range(1, 11)]  # 加速度リスト
@@ -68,7 +69,6 @@ def init_bb_imgs() -> tuple[list[pg.Surface], list[int]]:
 
 
 def get_kk_img(sum_mv: tuple[int, int]) -> pg.Surface:
-    # こうかとんの基本画像
     kk_img_base = pg.image.load("fig/3.png")
     kk_img_base = pg.transform.rotozoom(kk_img_base, 0, 0.9)
 
@@ -114,12 +114,12 @@ def main():
             gameover(screen)
             return
         
-        bb_imgs, bb_kasoku = init_bb_imgs()
+        bb_imgs, bb_kasoku = init_bb_imgs() 
         avx = vx * bb_kasoku[min(tmr//500, 9)]
         avy = vy * bb_kasoku[min(tmr//500, 9)]
         bb_img = bb_imgs[min(tmr//500, 9)]
-        vx == avx
-        vy == avy
+        vx == avx  # 加速した速さに置き換える
+        vy == avy  # 加速した速さに置き換える
 
         screen.blit(bg_img, [0, 0]) 
         key_lst = pg.key.get_pressed()

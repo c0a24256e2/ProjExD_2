@@ -16,6 +16,8 @@ DELTA = {  # 移動量辞書
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
 
+
+
 def check_bound(rct: pg.Rect) -> tuple[bool, bool]:
     """
     引数：こうかとんRectまたは爆弾Rect
@@ -63,6 +65,24 @@ def init_bb_imgs() -> tuple[list[pg.Surface], list[int]]:
         bb_img.set_colorkey((0, 0, 0))
         bb_imgs.append(bb_img)
     return bb_imgs, bb_kasoku
+
+
+def get_kk_img(sum_mv: tuple[int, int]) -> pg.Surface:
+    # こうかとんの基本画像
+    kk_img_base = pg.image.load("fig/3.png")
+    kk_img_base = pg.transform.rotozoom(kk_img_base, 0, 0.9)
+
+    kk_imgs = {
+        (5, 0): pg.transform.rotozoom(kk_img_base, 0, 1.0),   # 右
+        (-5, 0): pg.transform.rotozoom(kk_img_base, 0, 1.0),  # 左
+        (0, -5): pg.transform.rotozoom(kk_img_base, 90, 1.0), # 上
+        (0, 5): pg.transform.rotozoom(kk_img_base, -90, 1.0), # 下
+        (5, -5): pg.transform.rotozoom(kk_img_base, 45, 1.0), # 右上
+        (-5, -5): pg.transform.rotozoom(kk_img_base, 135, 1.0),# 左上
+        (5, 5): pg.transform.rotozoom(kk_img_base, -45, 1.0), # 右下
+        (-5, 5): pg.transform.rotozoom(kk_img_base, -135, 1.0),# 左下
+        (0, 0): pg.transform.rotozoom(kk_img_base, 0, 0.9) # 停止
+    }
 
 
 def main():
